@@ -2,10 +2,9 @@ const ERRORS = Object.freeze({
   error: "[ERROR]",
   emptyInput: "값이 입력되지 않았습니다. 입력값을 확인해주세요.",
   nonNumeric: "숫자를 입력해주세요.",
-  validateDate: "방문 날짜는 1에서 31 사이의 숫자만 입력 가능합니다.",
+  validateDate: "유효하지 않은 날짜입니다. 다시 입력해 주세요.",
   negativeNumber: "메뉴 주문 개수는 1 이상이어야 합니다.",
-  validateOrderFormat:
-    "주문 형식에 맞지 않은 입력입니다. 주문 형식에 맞춰 다시 주문해주세요.",
+  validateOrderFormat: "유효하지 않은 주문입니다. 다시 입력해 주세요.",
   notExistMenu: `은(는) 메뉴판에 존재하지 않는 메뉴입니다.`,
 });
 
@@ -23,7 +22,7 @@ class InputValidation {
   }
 
   static checkValidDate(input) {
-    if (input < 1 || input > 31) {
+    if (isNaN(input) || input < 1 || input > 31) {
       throw new Error(`${ERRORS.error} ${ERRORS.validateDate}`);
     }
   }
@@ -78,7 +77,6 @@ class InputValidation {
 
   static validateDate(input) {
     this.checkEmpty(input);
-    this.checkNonNumeric(input);
     this.checkValidDate(input);
     return parseInt(input, 10);
   }
