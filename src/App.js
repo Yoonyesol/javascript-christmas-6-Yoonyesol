@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import InputView from "./InputView.js";
+import InputView from "./views/InputView.js";
 
 class App {
   async run() {

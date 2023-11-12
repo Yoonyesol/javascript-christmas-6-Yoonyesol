@@ -1,5 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
-import InputValidation from "./utils/inputValidation.js";
+import InputValidation from "../utils/InputValidation.js";
 
 const InputView = {
   async getUserInput(inputFunction) {
