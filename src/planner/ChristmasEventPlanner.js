@@ -20,12 +20,26 @@ class ChristmasEventPlanner {
         [item.menu]: { price, category, count: item.count },
       });
     });
-
-    this.#printOrderedMenu(this.#orderedList);
   }
 
-  #printOrderedMenu(orderedList) {
-    OutputView.printMenu(orderedList);
+  #calculateTotalAmount() {
+    let totalAmount = 0;
+
+    this.#orderedList.forEach((item) => {
+      const { price, count } = Object.values(item)[0];
+      totalAmount += price * count;
+    });
+
+    return totalAmount;
+  }
+
+  printOrderedMenu() {
+    OutputView.printMenu(this.#orderedList);
+  }
+
+  printTotalAmount() {
+    const amount = this.#calculateTotalAmount();
+    OutputView.printTotalOrderAmount(amount);
   }
 }
 

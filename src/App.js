@@ -7,6 +7,8 @@ class App {
     const inputOrder = await InputView.getUserInput(InputView.readOrder);
 
     const eventPlanner = new ChristmasEventPlanner(inputDate, inputOrder);
+    eventPlanner.printOrderedMenu();
+    eventPlanner.printTotalAmount();
   }
 }
 
