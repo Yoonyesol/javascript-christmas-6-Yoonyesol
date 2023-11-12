@@ -38,6 +38,10 @@ class ChristmasEventPlanner {
       this.#totalAmount += price * count;
     });
 
+    if (this.#totalAmount >= 120000) {
+      this.#discount.gift = 25000;
+    }
+
     return this.#totalAmount;
   }
 
@@ -55,6 +59,10 @@ class ChristmasEventPlanner {
   printTotalAmount() {
     const amount = this.#calculateTotalAmount();
     OutputView.printTotalOrderAmount(amount);
+  }
+
+  printGift() {
+    OutputView.printGiftEvent(this.#discount.gift);
   }
 
   calculateDiscount() {

@@ -9,6 +9,7 @@ class App {
     const eventPlanner = new ChristmasEventPlanner(inputDate, inputOrder);
     eventPlanner.printOrderedMenu();
     eventPlanner.printTotalAmount();
+    eventPlanner.printGift();
     eventPlanner.calculateDiscount();
   }
 }
