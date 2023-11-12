@@ -1,15 +1,19 @@
 import OutputView from "../views/OutputView.js";
 import { menuList } from "./menu.js";
+import DateUtils from "../utils/DateUtils.js";
 
 class ChristmasEventPlanner {
   #date;
+  #isWeekend;
   #orderedList;
   #menuList;
   #totalAmount;
   #discount;
+  #totalDiscount;
 
   constructor(date, order) {
     this.#date = date;
+    this.#isWeekend = false;
     this.#orderedList = [];
     this.#menuList = menuList;
     this.#totalAmount = 0;
@@ -20,7 +24,9 @@ class ChristmasEventPlanner {
       specialDiscount: 0,
       gift: 0,
     };
+    this.#totalDiscount = 0;
     this.#updateOrderedMenu(order);
+    this.#calculateDayOfWeek();
   }
 
   #updateOrderedMenu(order) {
@@ -34,8 +40,10 @@ class ChristmasEventPlanner {
 
   #calculateTotalAmount() {
     this.#orderedList.forEach((item) => {
-      const { price, count } = Object.values(item)[0];
+      const { price, category, count } = Object.values(item)[0];
       this.#totalAmount += price * count;
+
+      this.#calculateWeekdayOrWeekendDiscount(category, count);
     });
 
     if (this.#totalAmount >= 120000) {
@@ -52,6 +60,35 @@ class ChristmasEventPlanner {
     }
   }
 
+  #calculateDayOfWeek() {
+    if (["금", "토"].includes(DateUtils.getDayOfWeek(this.#date))) {
+      this.#isWeekend = true;
+    }
+  }
+
+  #calculateWeekdayOrWeekendDiscount(category, count) {
+    if (this.#isWeekend && category === "메인 메뉴") {
+      this.#discount.weekendDiscount = 2023 * count;
+    }
+
+    if (!this.#isWeekend && category === "디저트") {
+      this.#discount.weekdayDiscount = 2023 * count;
+    }
+  }
+
+  #calculateBenefits() {
+    const benefitList = [];
+
+    Object.keys(this.#discount).forEach((key) => {
+      const value = this.#discount[key];
+      benefitList.push(value);
+
+      this.#totalDiscount += value;
+    });
+
+    return benefitList;
+  }
+
   printOrderedMenu() {
     OutputView.printMenu(this.#orderedList);
   }
@@ -63,6 +100,11 @@ class ChristmasEventPlanner {
 
   printGift() {
     OutputView.printGiftEvent(this.#discount.gift);
+  }
+
+  printBenefits() {
+    const benefitList = this.#calculateBenefits();
+    OutputView.printEventBenefits(this.#totalDiscount, benefitList);
   }
 
   calculateDiscount() {

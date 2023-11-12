@@ -11,6 +11,7 @@ class App {
     eventPlanner.printTotalAmount();
     eventPlanner.printGift();
     eventPlanner.calculateDiscount();
+    eventPlanner.printBenefits();
   }
 }
 

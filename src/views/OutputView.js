@@ -20,6 +20,31 @@ const OutputView = {
   printGiftEvent(input) {
     Console.print(`\n<증정 메뉴>\n${input === 0 ? "없음" : "샴페인 1개"}`);
   },
+
+  printEventBenefits(totalDiscount, benefits) {
+    const benefitNames = [
+      "크리스마스 디데이 할인",
+      "평일 할인",
+      "주말 할인",
+      "특별 할인",
+      "증정 이벤트",
+    ];
+
+    Console.print(`\n<혜택 내역>`);
+
+    if (totalDiscount === 0) {
+      Console.print("없음");
+      return;
+    }
+
+    for (let i = 0; i < benefits.length; i++) {
+      if (benefits[i] !== 0) {
+        Console.print(
+          `${benefitNames[i]}: -${benefits[i].toLocaleString("ko-kr")}원`
+        );
+      }
+    }
+  },
 };
 
 export default OutputView;
