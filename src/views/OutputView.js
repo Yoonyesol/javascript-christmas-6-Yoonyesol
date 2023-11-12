@@ -3,8 +3,11 @@ import { Console } from "@woowacourse/mission-utils";
 const OutputView = {
   printMenu(input) {
     Console.print("<주문 메뉴>");
+
     input.forEach((item) => {
-      Console.print(`${item.menu} ${item.count}개`);
+      const menuName = Object.keys(item)[0];
+      const count = item[menuName].count;
+      Console.print(`${menuName} ${count}개`);
     });
   },
 };

@@ -1,17 +1,31 @@
 import OutputView from "../views/OutputView.js";
+import { menuList } from "./menu.js";
 
 class ChristmasEventPlanner {
   #date;
-  #order;
+  #orderedList;
+  #menuList;
 
   constructor(date, order) {
     this.#date = date;
-    this.#order = order;
-    this.#printOrderedMenu(order);
+    this.#orderedList = [];
+    this.#menuList = menuList;
+    this.#updateOrderedMenu(order);
   }
 
-  #printOrderedMenu(order) {
-    OutputView.printMenu(order);
+  #updateOrderedMenu(order) {
+    order.forEach((item) => {
+      const { price, category } = this.#menuList[item.menu];
+      this.#orderedList.push({
+        [item.menu]: { price, category, count: item.count },
+      });
+    });
+
+    this.#printOrderedMenu(this.#orderedList);
+  }
+
+  #printOrderedMenu(orderedList) {
+    OutputView.printMenu(orderedList);
   }
 }
 
