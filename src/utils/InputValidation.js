@@ -41,7 +41,7 @@ class InputValidation {
 
   static checkMenuExistence(input) {
     if (!Object.keys(menuList).includes(input)) {
-      throw new Error(`${ERRORS.error} ${input}${ERRORS.notExistMenu}`);
+      throw new Error(`${ERRORS.error} ${input} ${ERRORS.notExistMenu}`);
     }
   }
 
