@@ -1,3 +1,5 @@
+import { menuList } from "../planner/menu.js";
+
 const ERRORS = Object.freeze({
   error: "[ERROR]",
   emptyInput: "값이 입력되지 않았습니다. 입력값을 확인해주세요.",
@@ -5,7 +7,8 @@ const ERRORS = Object.freeze({
   validateDate: "유효하지 않은 날짜입니다. 다시 입력해 주세요.",
   negativeNumber: "메뉴 주문 개수는 1 이상이어야 합니다.",
   validateOrderFormat: "유효하지 않은 주문입니다. 다시 입력해 주세요.",
-  notExistMenu: `은(는) 메뉴판에 존재하지 않는 메뉴입니다.`,
+  notExistMenu: "은(는) 메뉴판에 존재하지 않는 메뉴입니다.",
+  duplicatedMenu: "중복된 메뉴가 입력되었습니다.",
 });
 
 class InputValidation {
@@ -37,33 +40,17 @@ class InputValidation {
   }
 
   static checkMenuExistence(input) {
-    const availableMenus = [
-      "양송이수프",
-      "타파스",
-      "시저샐러드",
-      "티본스테이크",
-      "바비큐립",
-      "해산물파스타",
-      "크리스마스파스타",
-      "초코케이크",
-      "아이스크림",
-      "제로콜라",
-      "레드와인",
-      "샴페인",
-    ];
-
-    if (!availableMenus.includes(input)) {
+    if (!Object.keys(menuList).includes(input)) {
       throw new Error(`${ERRORS.error} ${input}${ERRORS.notExistMenu}`);
     }
   }
 
   static checkDuplicateMenu(orderItems) {
     const menuSet = new Set();
+
     orderItems.forEach((item) => {
       if (menuSet.has(item.menu)) {
-        throw new Error(
-          `${ERRORS.error} 중복된 메뉴가 입력되었습니다: ${item.menu}`
-        );
+        throw new Error(`${ERRORS.error} ${ERRORS.duplicatedMenu}.`);
       }
       menuSet.add(item.menu);
     });
