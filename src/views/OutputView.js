@@ -1,7 +1,13 @@
 import { Console } from "@woowacourse/mission-utils";
 
 const OutputView = {
+  printStart() {
+    Console.print("12월 26일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n");
+  },
+
   printMenu(input) {
+    this.printStart();
+
     Console.print("\n<주문 메뉴>");
 
     input.forEach((item) => {
@@ -47,7 +53,11 @@ const OutputView = {
   },
 
   printTotalBenefit(input) {
-    Console.print(`\n<총혜택 금액>\n-${input.toLocaleString("ko-kr")}원`);
+    Console.print(
+      `\n<총혜택 금액>\n${input === 0 ? "" : "-"}${input.toLocaleString(
+        "ko-kr"
+      )}원`
+    );
   },
 
   printDiscountedAmount(input) {
