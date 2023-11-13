@@ -1,7 +1,6 @@
 import OutputView from "../views/OutputView.js";
 import { menuList } from "./menu.js";
 import DateUtils from "../utils/DateUtils.js";
-import PlannerValidation from "./PlannerValidation.js";
 
 class ChristmasEventPlanner {
   #date;

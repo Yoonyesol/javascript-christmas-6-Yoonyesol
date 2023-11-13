@@ -9,6 +9,7 @@ const ERRORS = Object.freeze({
   validateOrderFormat: "유효하지 않은 주문입니다. 다시 입력해 주세요.",
   notExistMenu: "은(는) 메뉴판에 존재하지 않는 메뉴입니다.",
   duplicatedMenu: "중복된 메뉴가 입력되었습니다.",
+  drinksOnly: "음료만 주문할 수 없습니다.",
 });
 
 class InputValidation {
@@ -62,9 +63,19 @@ class InputValidation {
     }
   }
 
+  static checkOrderDrinksOnly(input) {
+    const containsOnlyDrinks = input.every(
+      (item) => menuList[item.menu].category === "음료"
+    );
+    if (containsOnlyDrinks) {
+      throw new Error(`${ERRORS.error} ${ERRORS.drinksOnly}`);
+    }
+  }
+
   static validateDate(input) {
     this.checkEmpty(input);
     this.checkValidDate(input);
+
     return parseInt(input, 10);
   }
 
@@ -82,6 +93,8 @@ class InputValidation {
     });
 
     this.checkDuplicateMenu(orderItems);
+    this.checkOrderDrinksOnly(orderItems);
+
     return orderItems;
   }
 }
