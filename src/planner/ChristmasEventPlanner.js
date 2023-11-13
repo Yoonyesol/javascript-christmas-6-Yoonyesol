@@ -89,6 +89,13 @@ class ChristmasEventPlanner {
     return benefitList;
   }
 
+  #calculateSpecialDiscount() {
+    if (this.#date === 25 || DateUtils.getDayOfWeek(this.#date) === "일") {
+      this.#discount.specialDiscount = 1000;
+      this.#totalDiscount += this.#discount.specialDiscount;
+    }
+  }
+
   printOrderedMenu() {
     OutputView.printMenu(this.#orderedList);
   }
@@ -103,6 +110,7 @@ class ChristmasEventPlanner {
   }
 
   printBenefits() {
+    this.#calculateSpecialDiscount();
     const benefitList = this.#calculateBenefits();
     OutputView.printEventBenefits(this.#totalDiscount, benefitList);
   }
