@@ -1,6 +1,7 @@
 import OutputView from "../views/OutputView.js";
 import { menuList } from "./menu.js";
 import DateUtils from "../utils/DateUtils.js";
+import PlannerValidation from "./PlannerValidation.js";
 
 class ChristmasEventPlanner {
   #date;
@@ -126,9 +127,13 @@ class ChristmasEventPlanner {
   }
 
   printBenefits() {
-    this.#calculateSpecialDiscount();
-    const benefitList = this.#calculateBenefits();
-    OutputView.printEventBenefits(this.#totalDiscount, benefitList);
+    if (this.#totalAmount >= 10000) {
+      this.#calculateSpecialDiscount();
+      const benefitList = this.#calculateBenefits();
+      OutputView.printEventBenefits(this.#totalDiscount, benefitList);
+      return;
+    }
+    OutputView.printEventBenefits(0, [0, 0, 0, 0, 0]);
   }
 
   printTotalBenefitAmount() {
