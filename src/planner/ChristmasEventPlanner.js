@@ -53,13 +53,6 @@ class ChristmasEventPlanner {
     return this.#totalAmount;
   }
 
-  #calculateChristmasDiscount() {
-    if (this.#date >= 1 && this.#date <= 25) {
-      const christmasDiscount = 1000 + (this.#date - 1) * 100;
-      this.#discount.christmasDiscount = christmasDiscount;
-    }
-  }
-
   #calculateDayOfWeek() {
     if (["금", "토"].includes(DateUtils.getDayOfWeek(this.#date))) {
       this.#isWeekend = true;
@@ -108,6 +101,13 @@ class ChristmasEventPlanner {
     OutputView.printGiftEvent(this.#discount.gift);
   }
 
+  calculateChristmasDiscount() {
+    if (this.#date >= 1 && this.#date <= 25) {
+      const christmasDiscount = 1000 + (this.#date - 1) * 100;
+      this.#discount.christmasDiscount = christmasDiscount;
+    }
+  }
+
   printBenefits() {
     this.#calculateSpecialDiscount();
     const benefitList = this.#calculateBenefits();
@@ -121,10 +121,6 @@ class ChristmasEventPlanner {
   printDiscountedAmount() {
     const discountedAmount = this.#totalAmount - this.#totalDiscount;
     OutputView.printDiscountedAmount(discountedAmount);
-  }
-
-  calculateDiscount() {
-    this.#calculateChristmasDiscount();
   }
 }
 

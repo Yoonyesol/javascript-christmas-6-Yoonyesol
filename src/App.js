@@ -10,7 +10,7 @@ class App {
     eventPlanner.printOrderedMenu();
     eventPlanner.printTotalAmount();
     eventPlanner.printGift();
-    eventPlanner.calculateDiscount();
+    eventPlanner.calculateChristmasDiscount();
     eventPlanner.printBenefits();
     eventPlanner.printTotalBenefitAmount();
   }
