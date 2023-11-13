@@ -45,6 +45,16 @@ const OutputView = {
       }
     }
   },
+
+  printTotalBenefit(input) {
+    Console.print(`\n<총혜택 금액>\n-${input.toLocaleString("ko-kr")}원`);
+  },
+
+  printDiscountedAmount(input) {
+    Console.print(
+      `\n<할인 후 예상 결제 금액>\n-${input.toLocaleString("ko-kr")}원`
+    );
+  },
 };
 
 export default OutputView;
