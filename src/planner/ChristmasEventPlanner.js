@@ -10,6 +10,7 @@ class ChristmasEventPlanner {
   #totalAmount;
   #discount;
   #totalDiscount;
+  #selectedBadge;
 
   constructor(date, order) {
     this.#date = date;
@@ -25,6 +26,7 @@ class ChristmasEventPlanner {
       gift: 0,
     };
     this.#totalDiscount = 0;
+    this.#selectedBadge = "없음";
     this.#updateOrderedMenu(order);
     this.#calculateDayOfWeek();
   }
@@ -88,6 +90,21 @@ class ChristmasEventPlanner {
     }
   }
 
+  #calculateBadge() {
+    const badgeList = [
+      { amount: 20000, badge: "산타" },
+      { amount: 10000, badge: "트리" },
+      { amount: 5000, badge: "별" },
+    ];
+
+    for (const { amount, badge } of badgeList) {
+      if (this.#totalDiscount >= amount) {
+        this.#selectedBadge = badge;
+        return;
+      }
+    }
+  }
+
   printOrderedMenu() {
     OutputView.printMenu(this.#orderedList);
   }
@@ -119,8 +136,14 @@ class ChristmasEventPlanner {
   }
 
   printDiscountedAmount() {
-    const discountedAmount = this.#totalAmount - this.#totalDiscount;
+    const discountedAmount =
+      this.#totalAmount - (this.#totalDiscount - this.#discount.gift);
     OutputView.printDiscountedAmount(discountedAmount);
+  }
+
+  printBadge() {
+    this.#calculateBadge();
+    OutputView.printObtainedBadge(this.#selectedBadge);
   }
 }
 

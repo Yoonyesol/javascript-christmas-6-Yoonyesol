@@ -13,6 +13,8 @@ class App {
     eventPlanner.calculateChristmasDiscount();
     eventPlanner.printBenefits();
     eventPlanner.printTotalBenefitAmount();
+    eventPlanner.printDiscountedAmount();
+    eventPlanner.printBadge();
   }
 }
 

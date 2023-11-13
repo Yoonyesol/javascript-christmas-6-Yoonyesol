@@ -52,8 +52,12 @@ const OutputView = {
 
   printDiscountedAmount(input) {
     Console.print(
-      `\n<할인 후 예상 결제 금액>\n-${input.toLocaleString("ko-kr")}원`
+      `\n<할인 후 예상 결제 금액>\n${input.toLocaleString("ko-kr")}원`
     );
+  },
+
+  printObtainedBadge(badge) {
+    Console.print(`\n<12월 이벤트 배지>\n${badge}`);
   },
 };
 
