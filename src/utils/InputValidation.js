@@ -10,6 +10,7 @@ const ERRORS = Object.freeze({
   notExistMenu: "은(는) 메뉴판에 존재하지 않는 메뉴입니다.",
   duplicatedMenu: "중복된 메뉴가 입력되었습니다.",
   drinksOnly: "음료만 주문할 수 없습니다.",
+  maxMenuCount: "메뉴는 최대 20개까지만 주문 가능합니다.",
 });
 
 class InputValidation {
@@ -72,6 +73,12 @@ class InputValidation {
     }
   }
 
+  static checkMaxMenuCount(input) {
+    if (input > 20) {
+      throw new Error(`${ERRORS.error} ${ERRORS.maxMenuCount}`);
+    }
+  }
+
   static validateDate(input) {
     this.checkEmpty(input);
     this.checkValidDate(input);
@@ -83,17 +90,24 @@ class InputValidation {
     this.checkEmpty(input);
     this.checkValidOrderFormat(input);
 
+    let menuCount = 0;
+
     const orderItems = input.split(",").map((item) => {
       const [menu, count] = item.trim().split("-");
 
       this.checkMenuExistence(menu);
+
+      const parsedCount = parseInt(count, 10);
       this.checkNegativeMenuCount(count);
 
-      return { menu, count: parseInt(count, 10) };
+      menuCount += parsedCount;
+
+      return { menu, count: parsedCount };
     });
 
     this.checkDuplicateMenu(orderItems);
     this.checkOrderDrinksOnly(orderItems);
+    this.checkMaxMenuCount(menuCount);
 
     return orderItems;
   }
