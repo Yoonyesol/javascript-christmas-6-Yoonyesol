@@ -1,4 +1,4 @@
-import InputValidation from "../src/utils/InputValidation";
+import InputValidation from "../src/utils/InputValidation.js";
 
 describe("InputValidation 테스트", () => {
   test("checkEmpty(): 빈 문자열 처리", () => {

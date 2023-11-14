@@ -3,7 +3,7 @@ import { menuList, badgeList } from "./eventData.js";
 import DateUtils from "../utils/DateUtils.js";
 import { EVENT_RULE, RESULT } from "../utils/constants.js";
 
-class ChristmasEventPlanner {
+class EventPlanner {
   #date;
   #isWeekend;
   #orderedList;
@@ -152,4 +152,4 @@ class ChristmasEventPlanner {
   }
 }
 
-export default ChristmasEventPlanner;
+export default EventPlanner;

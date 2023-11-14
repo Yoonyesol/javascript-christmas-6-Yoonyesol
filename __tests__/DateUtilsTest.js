@@ -1,4 +1,4 @@
-import DateUtils from "../src/utils/DateUtils";
+import DateUtils from "../src/utils/DateUtils.js";
 
 describe("DateUtils 테스트", () => {
   test("getDayOfWeek(): 23년 12월 '일수'에 따른 요일 반환", () => {
