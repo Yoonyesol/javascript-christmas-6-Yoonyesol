@@ -1,17 +1,16 @@
 import { Console } from "@woowacourse/mission-utils";
-import { benefitNames } from "../planner/eventData";
+import { benefitNames } from "../planner/eventData.js";
+import { EVENT_RULE, RESULT } from "../utils/constants.js";
 
 const OutputView = {
   printStart(date) {
-    Console.print(
-      `12월 ${date}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n`
-    );
+    Console.print(RESULT.startMessage.replace("${date}", date));
   },
 
   printMenu(date, input) {
     this.printStart(date);
 
-    Console.print("\n<주문 메뉴>");
+    Console.print(RESULT.orderMenuTitle);
 
     input.forEach((item) => {
       const menuName = Object.keys(item)[0];
@@ -22,19 +21,27 @@ const OutputView = {
 
   printTotalOrderAmount(totalAmount) {
     Console.print(
-      `\n<할인 전 총주문 금액>\n${totalAmount.toLocaleString("ko-kr")}원`
+      `${RESULT.totalOrderAmountTitle}\n${totalAmount.toLocaleString(
+        "ko-kr"
+      )}원`
     );
   },
 
   printGiftEvent(input) {
-    Console.print(`\n<증정 메뉴>\n${input === 0 ? "없음" : "샴페인 1개"}`);
+    Console.print(
+      `${RESULT.giftMenuTitle}\n${
+        input === 0
+          ? RESULT.none
+          : `${EVENT_RULE.giftMenu} ${EVENT_RULE.giftCount}개`
+      }`
+    );
   },
 
   printEventBenefits(totalDiscount, benefits) {
-    Console.print(`\n<혜택 내역>`);
+    Console.print(RESULT.benefitsTitle);
 
     if (totalDiscount === 0) {
-      Console.print("없음");
+      Console.print(RESULT.none);
       return;
     }
 
@@ -49,20 +56,20 @@ const OutputView = {
 
   printTotalBenefit(input) {
     Console.print(
-      `\n<총혜택 금액>\n${input === 0 ? "" : "-"}${input.toLocaleString(
-        "ko-kr"
-      )}원`
+      `${RESULT.totalBenefitAmountTitle}\n${
+        input === 0 ? "" : "-"
+      }${input.toLocaleString("ko-kr")}원`
     );
   },
 
   printDiscountedAmount(input) {
     Console.print(
-      `\n<할인 후 예상 결제 금액>\n${input.toLocaleString("ko-kr")}원`
+      `${RESULT.discountedAmountTitle}\n${input.toLocaleString("ko-kr")}원`
     );
   },
 
   printObtainedBadge(badge) {
-    Console.print(`\n<12월 이벤트 배지>\n${badge}`);
+    Console.print(`${RESULT.badgeTitle}\n${badge}`);
   },
 };
 

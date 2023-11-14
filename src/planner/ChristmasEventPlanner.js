@@ -1,6 +1,7 @@
 import OutputView from "../views/OutputView.js";
 import { menuList, badgeList } from "./eventData.js";
 import DateUtils from "../utils/DateUtils.js";
+import { EVENT_RULE, RESULT } from "../utils/constants.js";
 
 class ChristmasEventPlanner {
   #date;
@@ -24,7 +25,7 @@ class ChristmasEventPlanner {
       gift: 0,
     };
     this.#totalDiscount = 0;
-    this.#selectedBadge = "없음";
+    this.#selectedBadge = RESULT.none;
     this.#updateOrderedMenu(order);
     this.#calculateDayOfWeek();
   }
@@ -46,26 +47,26 @@ class ChristmasEventPlanner {
       this.#calculateWeekdayOrWeekendDiscount(category, count);
     });
 
-    if (this.#totalAmount >= 120000) {
-      this.#discount.gift = 25000;
+    if (this.#totalAmount >= EVENT_RULE.minAmountForGift) {
+      this.#discount.gift = menuList[EVENT_RULE.giftMenu].price;
     }
 
     return this.#totalAmount;
   }
 
   #calculateDayOfWeek() {
-    if (["금", "토"].includes(DateUtils.getDayOfWeek(this.#date))) {
+    if (EVENT_RULE.weekendDays.includes(DateUtils.getDayOfWeek(this.#date))) {
       this.#isWeekend = true;
     }
   }
 
   #calculateWeekdayOrWeekendDiscount(category, count) {
-    if (this.#isWeekend && category === "메인 메뉴") {
-      this.#discount.weekendDiscount = 2023 * count;
+    if (this.#isWeekend && category === EVENT_RULE.weekendDiscountCategory) {
+      this.#discount.weekendDiscount = EVENT_RULE.weekDiscountAmount * count;
     }
 
-    if (!this.#isWeekend && category === "디저트") {
-      this.#discount.weekdayDiscount = 2023 * count;
+    if (!this.#isWeekend && category === EVENT_RULE.weekdayDiscountCategory) {
+      this.#discount.weekdayDiscount = EVENT_RULE.weekDiscountAmount * count;
     }
   }
 
@@ -83,8 +84,11 @@ class ChristmasEventPlanner {
   }
 
   #calculateSpecialDiscount() {
-    if (this.#date === 25 || DateUtils.getDayOfWeek(this.#date) === "일") {
-      this.#discount.specialDiscount = 1000;
+    if (
+      this.#date === EVENT_RULE.specialDiscountDay[0] ||
+      DateUtils.getDayOfWeek(this.#date) === EVENT_RULE.specialDiscountDay[1]
+    ) {
+      this.#discount.specialDiscount = EVENT_RULE.specialDiscountAmount;
     }
   }
 
@@ -111,14 +115,19 @@ class ChristmasEventPlanner {
   }
 
   calculateChristmasDiscount() {
-    if (this.#date >= 1 && this.#date <= 25) {
-      const christmasDiscount = 1000 + (this.#date - 1) * 100;
+    if (
+      this.#date >= EVENT_RULE.christmasDiscountDuration[0] &&
+      this.#date <= EVENT_RULE.christmasDiscountDuration[1]
+    ) {
+      const christmasDiscount =
+        EVENT_RULE.christmasDiscountAmount +
+        (this.#date - 1) * EVENT_RULE.dailyIncrement;
       this.#discount.christmasDiscount = christmasDiscount;
     }
   }
 
   printBenefits() {
-    if (this.#totalAmount >= 10000) {
+    if (this.#totalAmount >= EVENT_RULE.minEventAmount) {
       this.#calculateSpecialDiscount();
       const benefitList = this.#calculateBenefits();
       OutputView.printEventBenefits(this.#totalDiscount, benefitList);
