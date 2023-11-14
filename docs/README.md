@@ -50,7 +50,16 @@
 src
   ├── App.js
   ├── index.js
-  ├── Lotto.js
-  ├── InputView.js
-  ├── OutputView.js
+  ├── planner
+  │   ├── eventData.js
+  │   ├── EventPlanner.js
+  │
+  ├── utils
+  │   ├── constants.js
+  │   ├── DateUtils.js
+  │   ├── InputValidation.js
+  │
+  ├── views
+  │   ├── InputView.js
+  │   ├── OutputView.js
 ```
