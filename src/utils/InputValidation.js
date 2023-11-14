@@ -1,5 +1,5 @@
 import { menuList } from "../planner/eventData.js";
-import { ERRORS } from "./constants.js";
+import { ERRORS, EVENT_RULE } from "./constants.js";
 
 class InputValidation {
   static checkEmpty(input) {
@@ -62,7 +62,7 @@ class InputValidation {
   }
 
   static checkMaxMenuCount(input) {
-    if (input > 20) {
+    if (input > EVENT_RULE.maxMenuCount) {
       throw new Error(`${ERRORS.error} ${ERRORS.maxMenuCount}`);
     }
   }
