@@ -1,12 +1,14 @@
 import { Console } from "@woowacourse/mission-utils";
 
 const OutputView = {
-  printStart() {
-    Console.print("12월 26일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n");
+  printStart(date) {
+    Console.print(
+      `12월 ${date}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n`
+    );
   },
 
-  printMenu(input) {
-    this.printStart();
+  printMenu(date, input) {
+    this.printStart(date);
 
     Console.print("\n<주문 메뉴>");
 

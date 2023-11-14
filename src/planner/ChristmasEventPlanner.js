@@ -106,7 +106,7 @@ class ChristmasEventPlanner {
   }
 
   printOrderedMenu() {
-    OutputView.printMenu(this.#orderedList);
+    OutputView.printMenu(this.#date, this.#orderedList);
   }
 
   printTotalAmount() {

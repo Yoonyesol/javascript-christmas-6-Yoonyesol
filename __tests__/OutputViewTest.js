@@ -11,6 +11,7 @@ describe("OutputView 테스트", () => {
   });
 
   test("printMenu(): 주문 메뉴 출력", () => {
+    const date = "3";
     const input = [
       { 해산물파스타: { price: 35000, category: "메인", count: 2 } },
       { 레드와인: { price: 60000, category: "음료", count: 1 } },
@@ -18,14 +19,14 @@ describe("OutputView 테스트", () => {
     ];
 
     const expectedOutput = [
-      "12월 26일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!",
+      "12월 3일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!",
       "<주문 메뉴>",
       "해산물파스타 2개",
       "레드와인 1개",
       "초코케이크 1개",
     ];
 
-    OutputView.printMenu(input);
+    OutputView.printMenu(date, input);
     expect(Console.print).toHaveBeenCalledTimes(5);
 
     expectedOutput.forEach((expected) => {
