@@ -1,12 +1,11 @@
 import OutputView from "../views/OutputView.js";
-import { menuList } from "./menu.js";
+import { menuList, badgeList } from "./eventData.js";
 import DateUtils from "../utils/DateUtils.js";
 
 class ChristmasEventPlanner {
   #date;
   #isWeekend;
   #orderedList;
-  #menuList;
   #totalAmount;
   #discount;
   #totalDiscount;
@@ -16,7 +15,6 @@ class ChristmasEventPlanner {
     this.#date = date;
     this.#isWeekend = false;
     this.#orderedList = [];
-    this.#menuList = menuList;
     this.#totalAmount = 0;
     this.#discount = {
       christmasDiscount: 0,
@@ -33,7 +31,7 @@ class ChristmasEventPlanner {
 
   #updateOrderedMenu(order) {
     order.forEach((item) => {
-      const { price, category } = this.#menuList[item.menu];
+      const { price, category } = menuList[item.menu];
       this.#orderedList.push({
         [item.menu]: { price, category, count: item.count },
       });
@@ -91,12 +89,6 @@ class ChristmasEventPlanner {
   }
 
   #calculateBadge() {
-    const badgeList = [
-      { amount: 20000, badge: "산타" },
-      { amount: 10000, badge: "트리" },
-      { amount: 5000, badge: "별" },
-    ];
-
     for (const { amount, badge } of badgeList) {
       if (this.#totalDiscount >= amount) {
         this.#selectedBadge = badge;

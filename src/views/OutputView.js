@@ -1,4 +1,5 @@
 import { Console } from "@woowacourse/mission-utils";
+import { benefitNames } from "../planner/eventData";
 
 const OutputView = {
   printStart(date) {
@@ -30,14 +31,6 @@ const OutputView = {
   },
 
   printEventBenefits(totalDiscount, benefits) {
-    const benefitNames = [
-      "크리스마스 디데이 할인",
-      "평일 할인",
-      "주말 할인",
-      "특별 할인",
-      "증정 이벤트",
-    ];
-
     Console.print(`\n<혜택 내역>`);
 
     if (totalDiscount === 0) {

@@ -12,3 +12,17 @@ export const menuList = {
   레드와인: { price: 60000, category: "음료" },
   샴페인: { price: 25000, category: "음료" },
 };
+
+export const badgeList = [
+  { amount: 20000, badge: "산타" },
+  { amount: 10000, badge: "트리" },
+  { amount: 5000, badge: "별" },
+];
+
+export const benefitNames = [
+  "크리스마스 디데이 할인",
+  "평일 할인",
+  "주말 할인",
+  "특별 할인",
+  "증정 이벤트",
+];

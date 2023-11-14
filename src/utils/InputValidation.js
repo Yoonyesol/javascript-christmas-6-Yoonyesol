@@ -1,4 +1,4 @@
-import { menuList } from "../planner/menu.js";
+import { menuList } from "../planner/eventData.js";
 
 const ERRORS = Object.freeze({
   error: "[ERROR]",
